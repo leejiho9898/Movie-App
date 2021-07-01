@@ -12,7 +12,7 @@ function LandingPage() {
       .then((response) => response.json())
       .then((response) => {
 
-        setMovies([response.results]);
+        setMovies([...Movies, ...response.results])
         console.log(response.results[0]);
         setMainMovieImage(response.results[0]);
         console.log(MainMovieImage);
@@ -21,7 +21,11 @@ function LandingPage() {
   return (
     <div style={{ width: "100%", margin: "0" }}>
       {/* main image */}
-
+      {MainMovieImage && (
+<MainImage image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
+title={MainMovieImage.original_title}
+ text={MainMovieImage.overview} />
+)}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <h2>Movies by latest</h2>
         <hr />
