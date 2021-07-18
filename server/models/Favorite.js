@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const favoriteSchema = mongoose.Schema(
   {
     userFrom: {
-      type: Schma.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
     movieId: {

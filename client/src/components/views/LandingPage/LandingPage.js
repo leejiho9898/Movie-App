@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { FaCode } from "react-icons/fa";
+import React, { useEffect,useState } from "react";
 import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
 import MainImage from "./Sections/MainImage";
 import GridCard from "../commons/GridCard";
@@ -9,6 +7,7 @@ import { Row } from "antd";
 function LandingPage() {
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
+  const [CurrentPage, setCurrentPage] = useState(0);
 
   const fetchMovies = (endpoint) => {
     fetch(endpoint)
@@ -17,6 +16,7 @@ function LandingPage() {
         console.log(response.results);
         setMovies([...Movies, ...response.results]);
         setMainMovieImage(response.results[0]);
+        setCurrentPage(response.page);
       });
   };
   useEffect(() => {
@@ -25,7 +25,9 @@ function LandingPage() {
   }, []);
 
   const loadMoreItems = () => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=2`;
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
+      CurrentPage + 1
+    }`;
     fetchMovies(endpoint);
   };
   return (
